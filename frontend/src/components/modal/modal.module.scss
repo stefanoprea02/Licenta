@@ -1,0 +1,57 @@
+.modalOutside {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  background-color: rgba($color: #000000, $alpha: 0.6);
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: .2s ease-in-out modalOutsideIn;
+}
+
+.modal {
+  height: 420px;
+  width: 550px;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  border-radius: 20px;
+  padding: 28px;
+  animation: .4s ease-in-out modalIn;
+
+  .modalTop{
+    display: flex;
+    justify-content: space-between;
+    
+    .modalExit {
+      cursor: pointer;
+    }
+  }
+}
+
+@keyframes modalOutsideIn {
+  0% {
+    opacity: 0%;
+  }
+
+  100% {
+    opacity: 100%;
+  }
+}
+
+@keyframes modalIn {
+  0% {
+    opacity: 0%;
+    transform: translateY(-200px);
+  }
+  70% {
+    opacity: 100%;
+    transform: translateY(10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
