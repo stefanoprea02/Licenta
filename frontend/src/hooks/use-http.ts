@@ -5,7 +5,7 @@ interface ConfigInterface {
   method: string;
   headers: HeadersInit;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  body: any;
+  body?: any;
   id: string;
 }
 

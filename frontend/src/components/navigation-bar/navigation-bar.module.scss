@@ -1,5 +1,7 @@
 .navbar{
   border-bottom: 1px solid #f1f1f1;
+  padding: 0px 10px;
+  background-color: white;
 }
 
 .list {
@@ -7,10 +9,24 @@
   list-style-type: none;
   justify-content: space-between;
   margin: 0;
-  padding: 20px;
+  padding: 14px;
 }
 
-.home {
-  display: inline-block;
-  margin: 10px 20px;
+.listRightSide {
+  display: flex;
+  gap: 16px;
+}
+
+li > a,
+li > p {
+  color: #7ed56f;
+  font-size: 16px;
+  font-weight: 500;
+  margin: 0px;
+}
+
+li > a:hover,
+li > p:hover {
+  color: #498a3e;
+  cursor: pointer;
 }

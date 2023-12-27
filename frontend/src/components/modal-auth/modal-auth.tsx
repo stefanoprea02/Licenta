@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import Modal from "../modal/modal";
 
@@ -37,6 +37,7 @@ export default function ModalAuth({ show, setShow }: ModalAuthProps) {
       email: "",
       password: ""
     };
+
     if (modalType === "signIn") {
       const username = (form[0] as HTMLInputElement).value;
       const password = (form[1] as HTMLInputElement).value;
@@ -83,11 +84,15 @@ export default function ModalAuth({ show, setShow }: ModalAuthProps) {
       .max(20, "Password must be shorter than 20 characters")
   });
 
-  const fields = [
-    { name: "username", label: "Username", type: "text" },
-    { name: "email", label: "Email", type: "text" },
-    { name: "password", label: "Password", type: "password" }
-  ].filter((field) => modalType === "signUp" || field.name !== "email");
+  const fields = useMemo(
+    () =>
+      [
+        { name: "username", label: "Username", type: "text" },
+        { name: "email", label: "Email", type: "text" },
+        { name: "password", label: "Password", type: "password" }
+      ].filter((field) => modalType === "signUp" || field.name !== "email"),
+    [modalType]
+  );
 
   return (
     <Modal
@@ -124,7 +129,14 @@ export default function ModalAuth({ show, setShow }: ModalAuthProps) {
           <p className={styles.errorMessage}>{error[modalType]}</p>
         )}
 
-        <Form fields={fields} onSubmit={handleSubmit} yup={authYup} />
+        <div style={{ marginTop: "20px" }}>
+          <Form
+            key={modalType}
+            fields={fields}
+            onSubmit={handleSubmit}
+            yup={authYup}
+          />
+        </div>
       </div>
     </Modal>
   );

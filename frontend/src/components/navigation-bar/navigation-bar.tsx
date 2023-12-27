@@ -17,14 +17,16 @@ export default function NavigationBar() {
                 Home
               </NavLink>
             </li>
-            <li>
-              <NavLink to="/upload" className={styles.home}>
-                Upload game
-              </NavLink>
-            </li>
-            <li>
-              <button onClick={() => setShowAuthModal(true)}>Sign in</button>
-            </li>
+            <div className={styles.listRightSide}>
+              <li>
+                <NavLink to="/upload" className={styles.home}>
+                  Upload game
+                </NavLink>
+              </li>
+              <li>
+                <p onClick={() => setShowAuthModal(true)}>Sign in</p>
+              </li>
+            </div>
           </ul>
         </nav>
       </header>

@@ -1,12 +1,17 @@
 import cx from "classnames";
-import React, { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import * as Yup from "yup";
 import styles from "./form.module.scss";
+import SelectForm from "./select-form/select-form";
 
 interface FormField {
   name: string;
   label: string;
   type: string;
+  options?: {
+    value: string;
+    label: string;
+  }[];
 }
 
 interface FormProps {
@@ -24,35 +29,19 @@ const Form = ({ fields, onSubmit, yup }: FormProps) => {
       valid: boolean;
       message: string;
     };
-  }>();
+  }>(
+    fields
+      .map((field) => ({ [field.name]: { valid: false, message: "" } }))
+      .reduce((acc, obj) => Object.assign(acc, obj), {})
+  );
 
-  //this is a reference that contains an array of references to every field input
-  const inputRefs = useRef<{
-    [key: string]: React.RefObject<HTMLInputElement>;
+  const [formData, setFormData] = useState<{
+    [key: string]: string | string[];
   }>({});
 
-  useEffect(() => {
-    fields.forEach((field) => {
-      if (inputRefs.current[field.name]?.current) {
-        inputRefs.current[field.name].current!.value = "";
-      } else inputRefs.current[field.name] = React.createRef();
-    });
-
-    const initialFormData: {
-      [key: string]: { valid: boolean; message: string };
-    } = {};
-    fields.forEach((field) => {
-      initialFormData[field.name] = { valid: false, message: "" };
-    });
-    setValid(initialFormData);
-  }, [fields]);
-
-  const verifyField = (fieldName: string) => {
-    const formData: { [key: string]: string } = {};
-    formData[fieldName] = inputRefs.current[fieldName]?.current?.value || "";
-
+  const verifyField = (fieldName: string, value: string | string[]) => {
     try {
-      yup.validateSyncAt(fieldName, formData);
+      yup.validateSyncAt(fieldName, { [fieldName]: value });
       return { valid: true, message: "" };
     } catch (err: unknown) {
       const message = err instanceof Yup.ValidationError ? err.message : "";
@@ -60,56 +49,67 @@ const Form = ({ fields, onSubmit, yup }: FormProps) => {
     }
   };
 
-  const handleInputChange = (fieldName: string) => {
-    const response = verifyField(fieldName);
+  const handleInputChange = (fieldName: string, value?: string | string[]) => {
+    if (value) setFormData((prev) => ({ ...prev, [fieldName]: value }));
 
+    const response = verifyField(fieldName, value || formData[fieldName]);
     setValid((prev) => ({ ...prev, [fieldName]: response }));
   };
 
   const formIsValid =
     valid && Object.entries(valid).every(([, value]) => value.valid);
 
-  if (valid)
-    return (
-      <form onSubmit={(event) => onSubmit(event)} className={styles.form}>
-        {fields.map((field) => {
-          if (valid[field.name])
-            return (
-              <div className={styles.formSection} key={field.name}>
+  return (
+    <form onSubmit={(event) => onSubmit(event)} className={styles.form}>
+      {fields.map((field) => {
+        return (
+          <div className={styles.formSection} key={field.name}>
+            {(field.type === "text" || field.type === "password") && (
+              <>
                 <input
                   type={field.type}
                   name={field.name}
-                  onChange={() => handleInputChange(field.name)}
+                  onChange={(event) =>
+                    handleInputChange(field.name, event.target.value)
+                  }
                   onBlur={() => handleInputChange(field.name)}
                   className={cx(styles.input)}
-                  ref={inputRefs.current[field.name]}
-                  placeholder={field.name}
+                  placeholder={field.label}
                 />
                 <span
                   className={
-                    valid[field.name].valid === false
+                    valid![field.name]?.valid === false
                       ? styles.badInput
                       : styles.goodInput
                   }
                 />
-                {valid[field.name].message && (
-                  <p className={styles.errorMessage}>
-                    {valid[field.name].message}
-                  </p>
-                )}
-              </div>
-            );
-        })}
-        <button
-          className={cx(styles.button, !formIsValid && styles.buttonInvalid)}
-          type="submit"
-          disabled={!formIsValid}
-        >
-          Submit
-        </button>
-      </form>
-    );
-  else return <></>;
+              </>
+            )}
+            {field.type === "select" && (
+              <SelectForm
+                field={field}
+                handleInputChange={handleInputChange}
+                valid={valid![field.name]?.valid}
+              />
+            )}
+
+            {valid![field.name]?.message && (
+              <p className={styles.errorMessage}>
+                {valid![field.name]?.message}
+              </p>
+            )}
+          </div>
+        );
+      })}
+      <button
+        className={cx(styles.button, !formIsValid && styles.buttonInvalid)}
+        type="submit"
+        disabled={!formIsValid}
+      >
+        Submit
+      </button>
+    </form>
+  );
 };
 
 export default Form;

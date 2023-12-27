@@ -31,6 +31,9 @@ a:hover {
 body {
   margin: 0;
   min-width: 320px;
+  background-color: #f4f4f4;
+  height: 100%;
+  overflow: auto;
 }
 
 h1 {

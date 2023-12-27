@@ -1,0 +1,150 @@
+[
+  {
+    "genre": "Action",
+    "description": "Fast-paced gameplay that emphasizes physical challenges, hand-eye coordination, and reaction time."
+  },
+  {
+    "genre": "Action-Adventure",
+    "description": "Combines elements of both action and adventure games, often including a strong narrative and exploration."
+  },
+  {
+    "genre": "Adventure",
+    "description": "Focuses on exploration, puzzle-solving, and storytelling, often in an open-world setting."
+  },
+  {
+    "genre": "Card Game",
+    "description": "Games that use playing cards as the primary gameplay element, often involving strategy and chance."
+  },
+  {
+    "genre": "Casual",
+    "description": "Easy-to-learn games with simple rules and gameplay, suitable for a wide audience."
+  },
+  {
+    "genre": "City Builder",
+    "description": "Simulation games where players construct and manage a city or settlement."
+  },
+  {
+    "genre": "Comedy",
+    "description": "Games designed to entertain and amuse through humor and comedic elements."
+  },
+  {
+    "genre": "Dungeon Crawler",
+    "description": "Focused on navigating through dungeons or maze-like environments, often with a fantasy theme."
+  },
+  {
+    "genre": "Exploration",
+    "description": "Emphasizes discovery and exploration of game worlds, often with hidden secrets and treasures."
+  },
+  {
+    "genre": "Fantasy",
+    "description": "Set in fantastical worlds with magical elements, mythical creatures, and imaginative settings."
+  },
+  {
+    "genre": "Fighting",
+    "description": "Combat-focused games where players engage in one-on-one or group battles against opponents."
+  },
+  {
+    "genre": "First Person",
+    "description": "Games that present the player's perspective from a first-person viewpoint."
+  },
+  {
+    "genre": "Horror",
+    "description": "Designed to evoke a sense of fear and suspense, often featuring dark atmospheres and supernatural elements."
+  },
+  {
+    "genre": "Indie",
+    "description": "Games developed by independent developers or small studios, often showcasing unique and creative ideas."
+  },
+  {
+    "genre": "MOBA",
+    "description": "Multiplayer Online Battle Arena games involve strategic team-based battles in an arena setting."
+  },
+  {
+    "genre": "Music",
+    "description": "Games that revolve around creating or interacting with music, often incorporating rhythm elements."
+  },
+  {
+    "genre": "Narration",
+    "description": "Focuses on storytelling and narrative-driven experiences, often with branching paths and choices."
+  },
+  {
+    "genre": "Open World",
+    "description": "Offers a vast and open game world for players to explore freely."
+  },
+  {
+    "genre": "Party",
+    "description": "Designed for multiplayer enjoyment, often with simple mechanics and a social atmosphere."
+  },
+  {
+    "genre": "Platformer",
+    "description": "Emphasizes jumping between platforms and overcoming obstacles."
+  },
+  {
+    "genre": "Puzzle",
+    "description": "Challenges players with problem-solving tasks and brain teasers."
+  },
+  {
+    "genre": "Racing",
+    "description": "Involves competing in races, either against AI or other players, often with a focus on speed and skill."
+  },
+  {
+    "genre": "Retro",
+    "description": "Pays homage to or emulates the style of older video games, often with pixel art and simple gameplay mechanics."
+  },
+  {
+    "genre": "Rogue-Lite",
+    "description": "Games with elements of roguelikes, featuring procedurally generated levels and permadeath."
+  },
+  {
+    "genre": "RPG",
+    "description": "Role-playing games that involve character development, storytelling, and often complex game worlds."
+  },
+  {
+    "genre": "RTS",
+    "description": "Real-time strategy games that focus on resource management and tactical decision-making."
+  },
+  {
+    "genre": "Shooter",
+    "description": "Emphasizes shooting as the primary gameplay mechanic, often from a first-person or third-person perspective."
+  },
+  {
+    "genre": "Simulation",
+    "description": "Simulates real-world activities or systems, often with a focus on accuracy and realism."
+  },
+  {
+    "genre": "Space",
+    "description": "Set in outer space, often involving space exploration, combat, and sci-fi elements."
+  },
+  {
+    "genre": "Sports",
+    "description": "Simulates real-world sports, offering a virtual experience of activities like soccer, basketball, and more."
+  },
+  {
+    "genre": "Stealth",
+    "description": "Gameplay that requires players to avoid being seen while accomplishing their objective."
+  },
+  {
+    "genre": "Strategy",
+    "description": "Logical gameplay that requires critical thinking to progress."
+  },
+  {
+    "genre": "Survival",
+    "description": "Players will use any available resources to last as long as possible."
+  },
+  {
+    "genre": "Tower Defense",
+    "description": "Players defend objectives against enemies."
+  },
+  {
+    "genre": "Trivia",
+    "description": "A competitive game that's based on the player's general knowledge or knowledge of a specific area."
+  },
+  {
+    "genre": "Turn-Based",
+    "description": "A game where one player takes a turn, then another player, and so on."
+  },
+  {
+    "genre": "Turn-Based Strategy",
+    "description": "Combines turn-based gameplay with strategic elements, often involving resource management and tactical planning."
+  }
+]

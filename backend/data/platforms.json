@@ -1,0 +1,10 @@
+[
+  { "platform": "PC" },
+  { "platform": "PlayStation" },
+  { "platform": "Xbox" },
+  { "platform": "Nintendo Switch" },
+  { "platform": "Mobile" },
+  { "platform": "VR (Virtual Reality)" },
+  { "platform": "Mac" },
+  { "platform": "Linux" }
+]

@@ -1,0 +1,594 @@
+[
+  {
+    "tag": "2D",
+    "description": "A game that uses flat graphics (no 3D geometry), and the camera provides no depth or perspective."
+  },
+  {
+    "tag": "1v1",
+    "description": "Battle against another player for victory."
+  },
+  {
+    "tag": "2v2",
+    "description": "Battle in two teams of two players."
+  },
+  {
+    "tag": "3v3",
+    "description": "Battle in two teams of three players."
+  },
+  {
+    "tag": "4v4",
+    "description": "Battle in two teams of four players."
+  },
+  {
+    "tag": "5v5",
+    "description": "Battle in two teams of five players."
+  },
+  {
+    "tag": "6v6",
+    "description": "Battle in two teams of six players."
+  },
+  {
+    "tag": "7v7",
+    "description": "Battle in two teams of seven players."
+  },
+  {
+    "tag": "8v8",
+    "description": "Battle in two teams of eight players."
+  },
+  {
+    "tag": "Action",
+    "description": "Battle NPCs or other players."
+  },
+  {
+    "tag": "Adventure",
+    "description": "Explorative and interactive gameplay that is story-driven."
+  },
+  {
+    "tag": "Aim Course",
+    "description": "Practice game designed to perfect combat skills."
+  },
+  {
+    "tag": "Arcade",
+    "description": "Fast-paced gameplay with a classic feel."
+  },
+  {
+    "tag": "Arena",
+    "description": "A uniquely crafted stage where players battle to victory."
+  },
+  {
+    "tag": "Artistic",
+    "description": "Skillfully crafted game with unique visuals."
+  },
+  {
+    "tag": "Atmospheric",
+    "description": "A game that uses a combination of imagery, sound, story, and gameplay to create an intense mood or experience."
+  },
+  {
+    "tag": "Attack",
+    "description": "Competitive gameplay with combative objectives."
+  },
+  {
+    "tag": "Base",
+    "description": "Gameplay with a designated area for uses like player spawn points and team bases."
+  },
+  {
+    "tag": "Base Building",
+    "description": "A game where building a base is a major focus of the game."
+  },
+  {
+    "tag": "Battle",
+    "description": "Gameplay that is won through combat skills."
+  },
+  {
+    "tag": "Battle Royale",
+    "description": "Combative gameplay where the last player or team standing wins."
+  },
+  {
+    "tag": "Board Game",
+    "description": "Gameplay that's experienced as a board game."
+  },
+  {
+    "tag": "Boss Battle",
+    "description": "Gameplay that features an NPC boss battle."
+  },
+  {
+    "tag": "Boxfight",
+    "description": "Combative gameplay that is won from building skills."
+  },
+  {
+    "tag": "Building",
+    "description": "Gameplay that allows player-built structures."
+  },
+  {
+    "tag": "Capture the Flag",
+    "description": "Competitive gameplay where teams battle to defend their own and capture the other team's flags."
+  },
+  {
+    "tag": "Card Game",
+    "description": "A game that uses cards as an integral part of the play."
+  },
+  {
+    "tag": "Casual",
+    "description": "Fun gameplay where winning isn't a primary objective."
+  },
+  {
+    "tag": "Choices Matter",
+    "description": "A game where the choices you make as a player have actual consequences in the game."
+  },
+  {
+    "tag": "Classes",
+    "description": "Gameplay that offers multiple loadouts or abilities."
+  },
+  {
+    "tag": "Clicker",
+    "description": "Also called an incremental game, this type of game involves clicking or tapping repeatedly to earn points or other rewards."
+  },
+  {
+    "tag": "Co-op",
+    "description": "Gameplay that can progress through two or more players working together."
+  },
+  {
+    "tag": "Collection",
+    "description": "Gameplay that is advanced by collecting items."
+  },
+  {
+    "tag": "Competitive",
+    "description": "Gameplay where players complete against other players."
+  },
+  {
+    "tag": "Crafting",
+    "description": "Gameplay where items are offered for players to collect and exchange."
+  },
+  {
+    "tag": "Creatures",
+    "description": "Gameplay that contains hostile or friendly creatures."
+  },
+  {
+    "tag": "Defend",
+    "description": "Gameplay where objectives are defended from hostile NPCs or players."
+  },
+  {
+    "tag": "Difficulty: Easy",
+    "description": "Gameplay that can be completed by players of all skill sets and abilities."
+  },
+  {
+    "tag": "Difficulty: Medium",
+    "description": "Gameplay that requires some skill or understanding of the game mechanics used."
+  },
+  {
+    "tag": "Difficulty: Hard",
+    "description": "Challenging gameplay that requires a high skill level or understanding of the game mechanics used."
+  },
+  {
+    "tag": "Difficulty: Very Hard",
+    "description": "Advanced gameplay that requires a thorough understanding of the game mechanics used."
+  },
+  {
+    "tag": "Difficulty: Ultra Hard",
+    "description": "Challenging gameplay that requires an advanced understanding of the game and its mechanics."
+  },
+  {
+    "tag": "Difficulty: Impossible",
+    "description": "Extreme gameplay that takes incredible skill to beat."
+  },
+  {
+    "tag": "Duo",
+    "description": "Gameplay that's designed to be completed in teams of two players."
+  },
+  {
+    "tag": "Driver Simulator",
+    "description": "A game that simulates driving."
+  },
+  {
+    "tag": "Economy",
+    "description": "Gameplay that uses currency exchanges as part of the game."
+  },
+  {
+    "tag": "Edit Course",
+    "description": "Gameplay that's focused on editing or changing existing structures."
+  },
+  {
+    "tag": "Educational",
+    "description": "Gameplay that features educational content."
+  },
+  {
+    "tag": "Episodic",
+    "description": "A game that releases content over time, in levels or missions called episodes."
+  },
+  {
+    "tag": "Escape",
+    "description": "Gameplay that requires players to escape from an obstacle or challenge."
+  },
+  {
+    "tag": "Event",
+    "description": "An island that recreates or centers around an event."
+  },
+  {
+    "tag": "Exploration",
+    "description": "Gameplay that offers an area or objective for investigation."
+  },
+  {
+    "tag": "Explosives",
+    "description": "Gameplay that features exploding items."
+  },
+  {
+    "tag": "Farming Simulator",
+    "description": "A game that simulates one or more aspects of farming."
+  },
+  {
+    "tag": "Fashion",
+    "description": "Gameplay objectives will include the player's selections of skins."
+  },
+  {
+    "tag": "Fighting",
+    "description": "A game that involves combat between two or more avatars."
+  },
+  {
+    "tag": "Fortnitemares",
+    "description": "A Halloween-themed game."
+  },
+  {
+    "tag": "Free for All",
+    "description": "Players will battle each other with no teams."
+  },
+  {
+    "tag": "Friendly",
+    "description": "Gameplay will not have combat."
+  },
+  {
+    "tag": "Funny",
+    "description": "Sometimes games like minigames, prop hunts, or even skill runs can have funny or even silly aspects to the game."
+  },
+  {
+    "tag": "Gun Fight",
+    "description": "Gameplay that features combat with gun weapons."
+  },
+  {
+    "tag": "Gun Game",
+    "description": "Gameplay that features a variety of weapons that change when players are eliminated."
+  },
+  {
+    "tag": "Hardcore",
+    "description": "Advanced gameplay with less visual and mechanical assistance."
+  },
+  {
+    "tag": "Heroes",
+    "description": "Gameplay that features characters with special abilities."
+  },
+  {
+    "tag": "Horror",
+    "description": "Gameplay that features horror themes and spooky visuals."
+  },
+  {
+    "tag": "Hub",
+    "description": "Gameplay that features portals to other player-built islands."
+  },
+  {
+    "tag": "Infection",
+    "description": "Gameplay will progress as players on one team aim to convert the other through damage or elimination."
+  },
+  {
+    "tag": "Just for Fun",
+    "description": "Fun gameplay that's designed to be low stress."
+  },
+  {
+    "tag": "King of the Hill",
+    "description": "Players will race to see who can control objective points the longest."
+  },
+  {
+    "tag": "Memes",
+    "description": "A game that depends on memes as an essential part of gameplay."
+  },
+  {
+    "tag": "Melee",
+    "description": "A free-for-all with up-close fighting."
+  },
+  {
+    "tag": "Minigame",
+    "description": "Gameplay that features a collection of short duration games."
+  },
+  {
+    "tag": "Mining",
+    "description": "A simulation game that focuses on collecting (mining) a specific resource."
+  },
+  {
+    "tag": "MOBA",
+    "description": "Teams of competing players will compete in an area to destroy the opposing objectives."
+  },
+  {
+    "tag": "Moving",
+    "description": "Gameplay will progress by strategic movement skills."
+  },
+  {
+    "tag": "Music",
+    "description": "Gameplay will incorporate music in the experience."
+  },
+  {
+    "tag": "Mystery",
+    "description": "Players will solve puzzles throughout the gameplay."
+  },
+  {
+    "tag": "Nonlinear",
+    "description": "Gameplay offers objectives that can be completed in any order."
+  },
+  {
+    "tag": "Objective",
+    "description": "Gameplay has specific rules on how the game is lost or won."
+  },
+  {
+    "tag": "One in the Chamber",
+    "description": "Gunfight gameplay where ammo is increased under certain conditions."
+  },
+  {
+    "tag": "One Life",
+    "description": "Players will only have one life during the gameplay."
+  },
+  {
+    "tag": "One Shot",
+    "description": "A game that is played only once."
+  },
+  {
+    "tag": "Open World",
+    "description": "Gameplay offers a large map for players to explore and interact with."
+  },
+  {
+    "tag": "Parkour",
+    "description": "Players will use strategic movement and landing skills to advance through the gameplay."
+  },
+  {
+    "tag": "Party Game",
+    "description": "Unique gameplay designed to be enjoyed by many players."
+  },
+  {
+    "tag": "Party World",
+    "description": "A social environment for players to hang out and participate in mini-games together."
+  },
+  {
+    "tag": "Patchwork",
+    "description": "A game that uses the Patchwork devices as an integral part of the gameplay."
+  },
+  {
+    "tag": "Peaceful",
+    "description": "Friendly gameplay without combat or fighting."
+  },
+  {
+    "tag": "Pinball",
+    "description": "Gameplay will involve aspects of the classic pinball arcade game."
+  },
+  {
+    "tag": "Point Capture",
+    "description": "Gameplay requires teams to capture each other's objectives."
+  },
+  {
+    "tag": "Physics",
+    "description": "A game where the game mechanics depend heavily on using physics to jump, run, carry, or toss things."
+  },
+  {
+    "tag": "Pixel Art",
+    "description": "Applies to any island that uses pixel art in its theme."
+  },
+  {
+    "tag": "Platformer",
+    "description": "A game where the objective is to move to a destination by jumping from one platform to another."
+  },
+  {
+    "tag": "Practice",
+    "description": "Gameplay helps players improve skills."
+  },
+  {
+    "tag": "Prop",
+    "description": "Gameplay will feature items from the theme's environment."
+  },
+  {
+    "tag": "Prop Hunt",
+    "description": "Teams of players will either disguise themselves as props or search for disguised players."
+  },
+  {
+    "tag": "Puzzle",
+    "description": "Strategic gameplay that offers puzzles to solve."
+  },
+  {
+    "tag": "PVE",
+    "description": "Players will battle NPCs."
+  },
+  {
+    "tag": "PVP",
+    "description": "Players will battle each other."
+  },
+  {
+    "tag": "Quiz",
+    "description": "Logical gameplay with questions for players to answer."
+  },
+  {
+    "tag": "Race",
+    "description": "Competitive gameplay where players use speed to win objectives."
+  },
+  {
+    "tag": "Respawn",
+    "description": "Players can return to the game after elimination for more play."
+  },
+  {
+    "tag": "Retro",
+    "description": "Any game that is based on a retro game model, such as an arcade game."
+  },
+  {
+    "tag": "Roguelike",
+    "description": "A type of game where the player must restart the gameplay from the beginning each time their character is eliminated."
+  },
+  {
+    "tag": "Role Playing",
+    "description": "Players act out a character or role within the game."
+  },
+  {
+    "tag": "RPG",
+    "description": "In a roleplay game or RPG, the player assumes the role of a specific character for the game."
+  },
+  {
+    "tag": "Rounds",
+    "description": "Objectives for the game are by round, and the game contains two or more rounds."
+  },
+  {
+    "tag": "Runner",
+    "description": "Players must move swiftly to required locations."
+  },
+  {
+    "tag": "Sandbox",
+    "description": "A sandbox game is one that is isolated from a larger game to let users modify or experiment with aspects of the game."
+  },
+  {
+    "tag": "Search & Destroy",
+    "description": "Teams of players will arm and disarm objective points for victory."
+  },
+  {
+    "tag": "Seasonal",
+    "description": "Gameplay that features events and themes of various seasons and recurring events."
+  },
+  {
+    "tag": "Secrets",
+    "description": "This gameplay includes hidden items or areas for players to explore."
+  },
+  {
+    "tag": "Sequel",
+    "description": "A sequel game is based on something that already exists. It can be an earlier game, or a film or book or any other type of original work."
+  },
+  {
+    "tag": "Series",
+    "description": "Gameplay with multiple objectives."
+  },
+  {
+    "tag": "Shooter",
+    "description": "Gameplay that features projectile weapons."
+  },
+  {
+    "tag": "Shop",
+    "description": "Gameplay offers an area to trade resources for items."
+  },
+  {
+    "tag": "Show",
+    "description": "Gameplay that features community performances."
+  },
+  {
+    "tag": "Side Scroller",
+    "description": "A game that follows the player (usually in two dimensions) from a side-view camera as the player moves through a landscape."
+  },
+  {
+    "tag": "Simulator",
+    "description": "Gameplay designed to mimic the style of another game."
+  },
+  {
+    "tag": "Single Player",
+    "description": "Gameplay designed for one player to complete."
+  },
+  {
+    "tag": "Skillrun",
+    "description": "A game where players must cross obstacles and traps as quickly as possible to reach an objective."
+  },
+  {
+    "tag": "Skills",
+    "description": "Gameplay that challenges the player's abilities."
+  },
+  {
+    "tag": "Sniper",
+    "description": "Gameplay that features long-range weapons."
+  },
+  {
+    "tag": "Solo",
+    "description": "Gameplay meant to be completed by a single player."
+  },
+  {
+    "tag": "Space",
+    "description": "A game where the game environment is in outer space."
+  },
+  {
+    "tag": "Sports",
+    "description": "Gameplay that simulates sports activities."
+  },
+  {
+    "tag": "Squad",
+    "description": "Gameplay designed for four players to complete as a team."
+  },
+  {
+    "tag": "Stealth",
+    "description": "Gameplay that requires players to avoid being seen while accomplishing their objective."
+  },
+  {
+    "tag": "Story",
+    "description": "Gameplay that follows a narrative storyline."
+  },
+  {
+    "tag": "Strategy",
+    "description": "Logical gameplay that requires critical thinking to progress."
+  },
+  {
+    "tag": "Survival",
+    "description": "Players will use any available resources to last as long as possible."
+  },
+  {
+    "tag": "Survival Horror",
+    "description": "A subgenre of survival games that includes horror elements."
+  },
+  {
+    "tag": "Team Free for All",
+    "description": "Teams stand off against each other until a team wins."
+  },
+  {
+    "tag": "Teams",
+    "description": "Gameplay designed for groups of players."
+  },
+  {
+    "tag": "Timed",
+    "description": "A game with a set duration or time limit."
+  },
+  {
+    "tag": "Top-Down",
+    "description": "A camera perspective of the game that is from the top, looking down. This is also sometimes called bird's-eye, overhead, or helicopter view."
+  },
+  {
+    "tag": "Tower Defense",
+    "description": "Players defend objectives against enemies."
+  },
+  {
+    "tag": "Training",
+    "description": "A practice game designed to strengthen a player's combat skills."
+  },
+  {
+    "tag": "Trios",
+    "description": "Gameplay designed for players to complete in groups of three."
+  },
+  {
+    "tag": "Trivia",
+    "description": "A competitive game that's based on the player's general knowledge or knowledge of a specific area."
+  },
+  {
+    "tag": "Turn-Based",
+    "description": "A game where one player takes a turn, then another player, and so on."
+  },
+  {
+    "tag": "Tutorial",
+    "description": "Instructional gameplay that teaches players specific skills."
+  },
+  {
+    "tag": "Tycoon",
+    "description": "Gameplay designed for players to accumulate as much currency as possible."
+  },
+  {
+    "tag": "Unbalanced Teams",
+    "description": "Gameplay with teams that are not evenly matched."
+  },
+  {
+    "tag": "Visual Novel",
+    "description": "A type of game that tells an interactive story primarily through text."
+  },
+  {
+    "tag": "Winterfest",
+    "description": "A winter-themed game."
+  },
+  {
+    "tag": "Word Games",
+    "description": "Any game that tests a player's understanding or ability to use language."
+  },
+  {
+    "tag": "ZoneWars",
+    "description": "Gameplay where the safe zone continuously shifts."
+  }
+]
