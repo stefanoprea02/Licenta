@@ -1,18 +1,9 @@
 import cx from "classnames";
 import { useState } from "react";
 import * as Yup from "yup";
+import { FormField } from "../../types/types";
 import styles from "./form.module.scss";
 import SelectForm from "./select-form/select-form";
-
-interface FormField {
-  name: string;
-  label: string;
-  type: string;
-  options?: {
-    value: string;
-    label: string;
-  }[];
-}
 
 interface FormProps {
   fields: FormField[];
@@ -27,33 +18,47 @@ const Form = ({ fields, onSubmit, yup }: FormProps) => {
   const [valid, setValid] = useState<{
     [key: string]: {
       valid: boolean;
-      message: string;
+      message?: string;
     };
   }>(
     fields
-      .map((field) => ({ [field.name]: { valid: false, message: "" } }))
+      .map((field) => ({ [field.name]: { valid: false } }))
       .reduce((acc, obj) => Object.assign(acc, obj), {})
   );
 
-  const [formData, setFormData] = useState<{
+  const [formDataText, setFormDataText] = useState<{
     [key: string]: string | string[];
   }>({});
 
-  const verifyField = (fieldName: string, value: string | string[]) => {
+  const [formDataImages, setFormDataImages] = useState<EventTarget[]>([]);
+
+  //compares an input field with the yup validator
+  const verifyField = (
+    fieldName: string,
+    value: string | string[] | EventTarget[]
+  ) => {
     try {
       yup.validateSyncAt(fieldName, { [fieldName]: value });
-      return { valid: true, message: "" };
+      return { valid: true };
     } catch (err: unknown) {
       const message = err instanceof Yup.ValidationError ? err.message : "";
       return { valid: false, message: message };
     }
   };
 
+  //if there are no values passed it means the function just checks input validity
   const handleInputChange = (fieldName: string, value?: string | string[]) => {
-    if (value) setFormData((prev) => ({ ...prev, [fieldName]: value }));
+    if (value) setFormDataText((prev) => ({ ...prev, [fieldName]: value }));
 
-    const response = verifyField(fieldName, value || formData[fieldName]);
+    const response = verifyField(fieldName, value || formDataText[fieldName]);
     setValid((prev) => ({ ...prev, [fieldName]: response }));
+  };
+
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setFormDataImages((prev) => [...prev, event.target]);
+
+    const response = verifyField("images", [...formDataImages, event.target]);
+    setValid((prev) => ({ ...prev, images: response }));
   };
 
   const formIsValid =
@@ -92,7 +97,13 @@ const Form = ({ fields, onSubmit, yup }: FormProps) => {
                 valid={valid![field.name]?.valid}
               />
             )}
-
+            {field.type === "image" && (
+              <input
+                type="file"
+                name="images"
+                onChange={(event) => handleImageChange(event)}
+              />
+            )}
             {valid![field.name]?.message && (
               <p className={styles.errorMessage}>
                 {valid![field.name]?.message}

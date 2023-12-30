@@ -1,4 +1,5 @@
-import { useEffect, useMemo, useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useContext, useEffect, useMemo, useState } from "react";
 
 import Modal from "../modal/modal";
 
@@ -7,6 +8,9 @@ import styles from "./modal-auth.module.scss";
 import * as Yup from "yup";
 
 import useHttp from "../../hooks/use-http";
+import { UserContext } from "../../store/UserContext";
+import { UserType } from "../../types/types";
+import { authValidator } from "../../types/yup-validators";
 import Form from "../form/form";
 
 interface ModalAuthProps {
@@ -14,9 +18,19 @@ interface ModalAuthProps {
   setShow: (value: boolean) => void;
 }
 
+interface ApplyDataProps {
+  user: UserType;
+  token: string;
+}
+
 export default function ModalAuth({ show, setShow }: ModalAuthProps) {
   const [modalType, setModalType] = useState<string>("signIn");
   const { sendRequest, error, isLoading, isFinished, resetValues } = useHttp();
+  const ctx = useContext(UserContext);
+
+  const applyData = ({ user }: ApplyDataProps) => {
+    ctx.setUserData(user);
+  };
 
   useEffect(() => {
     if (isFinished?.[modalType] && !error?.[modalType]) {
@@ -33,56 +47,34 @@ export default function ModalAuth({ show, setShow }: ModalAuthProps) {
 
     const form = event.target as HTMLFormElement;
     const formData = {
-      username: "",
-      email: "",
-      password: ""
+      username: (form[0] as HTMLInputElement).value,
+      email: modalType !== "signIn" ? (form[1] as HTMLInputElement).value : "",
+      password:
+        modalType === "signIn"
+          ? (form[1] as HTMLInputElement).value
+          : (form[2] as HTMLInputElement).value
     };
-
-    if (modalType === "signIn") {
-      const username = (form[0] as HTMLInputElement).value;
-      const password = (form[1] as HTMLInputElement).value;
-
-      formData.username = username;
-      formData.password = password;
-    } else {
-      const username = (form[0] as HTMLInputElement).value;
-      const email = (form[1] as HTMLInputElement).value;
-      const password = (form[2] as HTMLInputElement).value;
-
-      formData.username = username;
-      formData.email = email;
-      formData.password = password;
-    }
 
     let url = "http://localhost:3000/users/signup";
     if (modalType === "signIn") {
       url = "http://localhost:3000/users/signin";
     }
 
-    sendRequest({
-      url: url,
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
+    sendRequest(
+      {
+        url: url,
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: formData,
+        id: modalType === "signIn" ? "signIn" : "signUp"
       },
-      body: formData,
-      id: modalType === "signIn" ? "signIn" : "signUp"
-    });
+      applyData
+    );
   };
 
-  const authYup = Yup.object().shape({
-    username: Yup.string()
-      .required("Username is required")
-      .min(5, "Username must be longer than 5 characters")
-      .max(20, "Username must be shorter than 20 characters"),
-    email: Yup.string()
-      .required("You must enter an email address")
-      .email("Email must be valid"),
-    password: Yup.string()
-      .required("Password is required")
-      .min(5, "Password must be longer than 5 characters")
-      .max(20, "Password must be shorter than 20 characters")
-  });
+  const authYup = Yup.object().shape(authValidator);
 
   const fields = useMemo(
     () =>

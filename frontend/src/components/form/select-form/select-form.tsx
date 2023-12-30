@@ -1,14 +1,5 @@
 import Select from "react-select";
-
-interface FormField {
-  name: string;
-  label: string;
-  type: string;
-  options?: {
-    value: string;
-    label: string;
-  }[];
-}
+import { FormField } from "../../../types/types";
 
 interface SelectProps {
   field: FormField;

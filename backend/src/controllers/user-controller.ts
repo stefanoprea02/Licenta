@@ -1,12 +1,27 @@
 import User from "../models/User";
 import { hashSync, compareSync } from "bcryptjs";
-import { NextFunction, RequestHandler, Response, Request } from "express";
+import { RequestHandler } from "express";
 import { JwtPayload, sign, verify } from "jsonwebtoken";
 import { parseCookies } from "../utils/web";
+import { UserDTO } from "../types/types";
 
 function isJwtPayload(obj: any): obj is JwtPayload {
   return obj && typeof obj === "object" && "id" in obj;
 }
+
+const getUser: RequestHandler = async (req, res, next) => {
+  const userId = res.locals.id;
+  let user;
+  try {
+    user = await User.findById(userId, "-password");
+  } catch (err) {
+    console.log(err);
+  }
+  if (!user) {
+    return res.status(404).json({ messsage: "User Not Found" });
+  }
+  return res.status(200).json({ user });
+};
 
 const signup: RequestHandler = async (req, res, next) => {
   const { username, email, password } = req.body;
@@ -48,7 +63,13 @@ const signup: RequestHandler = async (req, res, next) => {
     secure: false,
   });
 
-  return res.status(200).json({ user: user, token });
+  const userDTO: UserDTO = {
+    _id: user._id.toString(),
+    username: user.username,
+    email: user.email,
+  };
+
+  return res.status(200).json({ user: userDTO, token });
 };
 
 const signin: RequestHandler = async (req, res, next) => {
@@ -83,25 +104,31 @@ const signin: RequestHandler = async (req, res, next) => {
     sameSite: "lax",
   });
 
-  return res.status(200).json({ user: existingUser, token });
+  const userDTO: UserDTO = {
+    _id: existingUser._id.toString(),
+    username: existingUser.username,
+    email: existingUser.email,
+  };
+
+  return res.status(200).json({ user: userDTO, token });
 };
 
 const verifyToken: RequestHandler = (req, res, next) => {
   const cookiesHeader = req.headers.cookie;
   if (!cookiesHeader)
-    return res.status(404).json({ message: "No cookies found" });
+    return res.status(401).json({ message: "No cookies found" });
 
   const parsedCookies = parseCookies(cookiesHeader);
 
   const token = parsedCookies.token;
 
   if (!token) {
-    res.status(404).json({ message: "No token found" });
+    res.status(401).json({ message: "No token found" });
   }
 
   verify(String(token), process.env.JWT_SECRET!, (err, user) => {
     if (err) {
-      return res.status(400).json({ message: "Invalid token" });
+      return res.status(401).json({ message: "Invalid token" });
     }
 
     if (!isJwtPayload(user)) {
@@ -116,24 +143,10 @@ const verifyToken: RequestHandler = (req, res, next) => {
   next();
 };
 
-const getUser: RequestHandler = async (req, res, next) => {
-  const userId = res.locals.id;
-  let user;
-  try {
-    user = await User.findById(userId, "-password");
-  } catch (err) {
-    console.log(err);
-  }
-  if (!user) {
-    return res.status(404).json({ messsage: "User Not Found" });
-  }
-  return res.status(200).json({ user });
-};
-
 const refreshToken: RequestHandler = (req, res, next) => {
   const cookiesHeader = req.headers.cookie;
   if (!cookiesHeader)
-    return res.status(404).json({ message: "No cookies found" });
+    return res.status(401).json({ message: "No cookies found" });
 
   const parsedCookies = parseCookies(cookiesHeader);
 

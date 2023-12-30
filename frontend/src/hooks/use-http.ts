@@ -46,10 +46,11 @@ const useHttp = () => {
               ...prev,
               [requestConfig.id]: res.message || "Something weng wrong"
             }));
+            return;
           }
           return res;
         })
-        .then((data) => applyData && applyData(data))
+        .then((data) => applyData && data && applyData(data))
         .catch((error) => {
           setError((prev) => ({
             ...prev,
