@@ -42,7 +42,6 @@
   background-color: rgba(#f4f4f4, .5);
   border: 1px solid #eee;
   display: block;
-  color: inherit;
   transition: all .3s;
 
   &::placeholder {
@@ -75,6 +74,49 @@
 
 .input:focus + .badInput {
   border-bottom: 3px solid #ff7730;
+}
+
+.imagesContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.image{
+  width: 150px;
+  height: 150px;
+  border-radius: 20px;
+  border-radius: 20px;
+  border: 1px solid gray;
+  object-fit: scale-down;
+}
+
+.imageInput {
+  width: 150px;
+  position: relative;
+
+  &::file-selector-button {
+    
+    cursor: pointer;
+    width: 150px;
+    height: 150px;
+    background-color: rgb(248, 248, 248);
+    font-size: 0;
+    border-radius: 20px;
+    border: 1px solid gray;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 25px;
+    left: 25px;
+    width: 100px;
+    height: 100px;
+    background-image: url("../../assets/icons/plus.svg");
+    background-size: cover;
+    cursor: pointer;
+  }
 }
 
 .errorMessage {

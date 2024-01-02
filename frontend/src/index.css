@@ -4,6 +4,10 @@ html,
   box-sizing: border-box;
 }
 
+p, span, h1, h2, h3, h4, h5, h6, input {
+  color: black;
+}
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;

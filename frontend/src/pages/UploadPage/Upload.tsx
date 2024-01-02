@@ -1,17 +1,26 @@
 import { useEffect, useMemo, useState } from "react";
 import * as Yup from "yup";
-import Form from "../components/form/form";
-import useHttp from "../hooks/use-http";
-import { GenreType, LanguageType, PlatformType, TagType } from "../types/types";
-import { gameUploadValidator } from "../types/yup-validators";
+import Form from "../../components/form/form";
+import useHttp from "../../hooks/use-http";
+import {
+  FormField,
+  FormFieldSelectOption,
+  GenreType,
+  LanguageType,
+  PlatformType,
+  TagType
+} from "../../types/types";
+import { gameUploadValidator } from "../../types/yup-validators";
 import styles from "./Upload.module.scss";
 
 export default function Upload() {
-  const [data, setData] = useState({
-    genres: [{ value: "", label: "" }],
-    languages: [{ value: "", label: "" }],
-    platforms: [{ value: "", label: "" }],
-    tags: [{ value: "", label: "" }]
+  const [data, setData] = useState<{
+    [key: string]: FormFieldSelectOption[] | [];
+  }>({
+    genres: [],
+    languages: [],
+    platforms: [],
+    tags: []
   });
   const { sendRequest } = useHttp();
 
@@ -54,33 +63,38 @@ export default function Upload() {
 
   const gameYup = Yup.object().shape(gameUploadValidator);
 
-  const fields = useMemo(
-    () => [
+  const fields = useMemo(() => {
+    const a: FormField[] = [
       { name: "title", label: "Title", type: "text" },
       { name: "description", label: "Description", type: "text" },
-      { name: "genres", label: "Genres", type: "select", options: data.genres },
+      {
+        name: "genres",
+        label: "Genres",
+        type: "select",
+        selectOptions: data.genres
+      },
       {
         name: "tags",
         label: "Tags",
         type: "select",
-        options: data.tags
+        selectOptions: data.tags
       },
       {
         name: "platforms",
         label: "Platforms",
         type: "select",
-        options: data.platforms
+        selectOptions: data.platforms
       },
       {
         name: "languages",
         label: "Languages",
         type: "select",
-        options: data.languages
+        selectOptions: data.languages
       },
-      { name: "images", type: "image" }
-    ],
-    [data]
-  );
+      { name: "images", type: "image", maxImages: 8 }
+    ];
+    return a;
+  }, [data]);
 
   return (
     <>

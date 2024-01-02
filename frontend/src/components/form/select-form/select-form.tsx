@@ -17,7 +17,7 @@ export default function SelectForm({
       <Select
         placeholder={field.label}
         isMulti
-        options={field.options?.map((option) => {
+        options={field.selectOptions?.map((option) => {
           return {
             value: option.value,
             label: option.label

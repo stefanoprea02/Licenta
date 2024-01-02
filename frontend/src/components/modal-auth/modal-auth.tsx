@@ -118,7 +118,7 @@ export default function ModalAuth({ show, setShow }: ModalAuthProps) {
         </p>
 
         {!isLoading?.[modalType] && error?.[modalType] && (
-          <p className={styles.errorMessage}>{error[modalType]}</p>
+          <p className={styles.errorMessage}>{error[modalType].toString()}</p>
         )}
 
         <div style={{ marginTop: "20px" }}>

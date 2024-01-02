@@ -1,5 +1,5 @@
 import cx from "classnames";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import * as Yup from "yup";
 import { FormField } from "../../types/types";
 import styles from "./form.module.scss";
@@ -30,12 +30,12 @@ const Form = ({ fields, onSubmit, yup }: FormProps) => {
     [key: string]: string | string[];
   }>({});
 
-  const [formDataImages, setFormDataImages] = useState<EventTarget[]>([]);
+  const [formDataImages, setFormDataImages] = useState<File[]>([]);
 
   //compares an input field with the yup validator
   const verifyField = (
     fieldName: string,
-    value: string | string[] | EventTarget[]
+    value: string | string[] | File[]
   ) => {
     try {
       yup.validateSyncAt(fieldName, { [fieldName]: value });
@@ -48,18 +48,37 @@ const Form = ({ fields, onSubmit, yup }: FormProps) => {
 
   //if there are no values passed it means the function just checks input validity
   const handleInputChange = (fieldName: string, value?: string | string[]) => {
-    if (value) setFormDataText((prev) => ({ ...prev, [fieldName]: value }));
+    if (value !== undefined)
+      setFormDataText((prev) => ({ ...prev, [fieldName]: value }));
 
     const response = verifyField(fieldName, value || formDataText[fieldName]);
     setValid((prev) => ({ ...prev, [fieldName]: response }));
   };
 
-  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setFormDataImages((prev) => [...prev, event.target]);
+  const handleImageChange = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const fileInput = event.target;
+    const file = fileInput.files?.[0];
 
-    const response = verifyField("images", [...formDataImages, event.target]);
-    setValid((prev) => ({ ...prev, images: response }));
+    if (file) {
+      setFormDataImages((prev) => [...prev, file]);
+      const response = verifyField("images", [...formDataImages, file]);
+      setValid((prev) => ({ ...prev, images: response }));
+
+      fileInput.value = "";
+    }
   };
+
+  const images = useMemo(() => {
+    return formDataImages.map((formDataImage) => (
+      <img
+        className={styles.image}
+        key={URL.createObjectURL(formDataImage)}
+        src={URL.createObjectURL(formDataImage)}
+      />
+    ));
+  }, [formDataImages]);
 
   const formIsValid =
     valid && Object.entries(valid).every(([, value]) => value.valid);
@@ -72,6 +91,7 @@ const Form = ({ fields, onSubmit, yup }: FormProps) => {
             {(field.type === "text" || field.type === "password") && (
               <>
                 <input
+                  value={formDataText[field.name]}
                   type={field.type}
                   name={field.name}
                   onChange={(event) =>
@@ -97,13 +117,22 @@ const Form = ({ fields, onSubmit, yup }: FormProps) => {
                 valid={valid![field.name]?.valid}
               />
             )}
-            {field.type === "image" && (
-              <input
-                type="file"
-                name="images"
-                onChange={(event) => handleImageChange(event)}
-              />
-            )}
+            <>
+              {field.type === "image" && (
+                <div className={styles.imagesContainer}>
+                  {images}
+                  {field.maxImages && images.length < field.maxImages && (
+                    <input
+                      type="file"
+                      name="images"
+                      className={styles.imageInput}
+                      onChange={(event) => handleImageChange(event)}
+                      accept="image/png, image/jpeg"
+                    />
+                  )}
+                </div>
+              )}
+            </>
             {valid![field.name]?.message && (
               <p className={styles.errorMessage}>
                 {valid![field.name]?.message}

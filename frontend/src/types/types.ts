@@ -29,9 +29,12 @@ export interface TagType {
 export interface FormField {
   name: string;
   label?: string;
-  type: string;
-  options?: {
-    value: string;
-    label: string;
-  }[];
+  type: "text" | "password" | "select" | "image";
+  selectOptions?: FormFieldSelectOption[];
+  maxImages?: number;
+}
+
+export interface FormFieldSelectOption {
+  value: string;
+  label: string;
 }

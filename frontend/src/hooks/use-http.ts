@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 
 interface ConfigInterface {
   url: string;
@@ -19,6 +19,9 @@ const useHttp = () => {
   const [error, setError] = useState<{
     [key: string]: string;
   }>();
+  const activeRequests = useRef<{
+    [key: string]: boolean;
+  }>({});
 
   const resetValues = useCallback(() => {
     setIsLoading(undefined);
@@ -29,6 +32,12 @@ const useHttp = () => {
   const sendRequest = useCallback(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     async (requestConfig: ConfigInterface, applyData?: (data: any) => void) => {
+      if (activeRequests.current[requestConfig.id]) {
+        return;
+      }
+
+      activeRequests.current[requestConfig.id] = true;
+
       setIsLoading((prev) => ({ ...prev, [requestConfig.id]: true }));
       setIsFinished((prev) => ({ ...prev, [requestConfig.id]: false }));
       setError((prev) => ({ ...prev, [requestConfig.id]: "" }));
@@ -50,7 +59,7 @@ const useHttp = () => {
           }
           return res;
         })
-        .then((data) => applyData && data && applyData(data))
+        .then((data) => data && applyData?.(data))
         .catch((error) => {
           setError((prev) => ({
             ...prev,
@@ -60,6 +69,7 @@ const useHttp = () => {
         .finally(() => {
           setIsLoading((prev) => ({ ...prev, [requestConfig.id]: false }));
           setIsFinished((prev) => ({ ...prev, [requestConfig.id]: true }));
+          activeRequests.current[requestConfig.id] = false;
         });
     },
     []

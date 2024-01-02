@@ -5,21 +5,21 @@ import cookieParser from "cookie-parser";
 import logger from "morgan";
 import dotenv from "dotenv";
 import cors from "cors";
-import { usersRouter } from "./routes/users";
+import { gamesRouter } from "./routes/games";
 import { genresRouter } from "./routes/genres";
-import { tagsRouter } from "./routes/tags";
-import http from "http";
-
-import Bootstrap from "./bootstrap";
 import { languagesRouter } from "./routes/languages";
 import { platformsRouter } from "./routes/platforms";
+import { tagsRouter } from "./routes/tags";
+import { usersRouter } from "./routes/users";
+import http from "http";
+import Bootstrap from "./bootstrap";
 
 dotenv.config();
 
 const app: Application = express();
 
 const corsOptions: cors.CorsOptions = {
-  origin: "http://localhost:5173",
+  origin: ["http://127.0.0.1:5173", "http://localhost:5173"],
   credentials: true,
 };
 
@@ -31,11 +31,12 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use("/users", usersRouter);
+app.use("/games", gamesRouter);
 app.use("/genres", genresRouter);
-app.use("/tags", tagsRouter);
 app.use("/languages", languagesRouter);
 app.use("/platforms", platformsRouter);
+app.use("/tags", tagsRouter);
+app.use("/users", usersRouter);
 
 Bootstrap();
 
