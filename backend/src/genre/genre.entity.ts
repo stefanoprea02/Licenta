@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
+import { IGenre } from "./genre.types";
 
-const genreSchema = new mongoose.Schema({
+const genreSchema = new mongoose.Schema<IGenre>({
   genre: {
     type: String,
     required: true,

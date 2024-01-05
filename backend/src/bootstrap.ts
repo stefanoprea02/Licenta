@@ -79,15 +79,19 @@ export default async function Bootstrap() {
             case "genres":
               const genre = new Genre(docEntry);
               await genre.save();
+              break;
             case "tags":
               const tag = new Tag(docEntry);
               await tag.save();
+              break;
             case "platforms":
               const platform = new Platform(docEntry);
               await platform.save();
+              break;
             case "languages":
               const language = new Language(docEntry);
               await language.save();
+              break;
             default:
               break;
           }

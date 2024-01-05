@@ -24,20 +24,18 @@ export default function Upload() {
   });
   const { sendRequest } = useHttp();
 
-  const applyData = (getResponse: {
-    [key: string]: (GenreType | LanguageType | PlatformType | TagType)[];
-  }) => {
-    const responseDataName = Object.keys(getResponse)[0];
-
-    if (responseDataName) {
-      setData((prevData) => ({
-        ...prevData,
-        [responseDataName]: getResponse[responseDataName].map((entry) => ({
-          value: entry._id,
-          label: Object.values(entry)[1]
-        }))
-      }));
-    }
+  const applyData = (
+    getResponse: (GenreType | LanguageType | PlatformType | TagType)[],
+    requestId: string
+  ) => {
+    console.log(getResponse);
+    setData((prevData) => ({
+      ...prevData,
+      [requestId]: getResponse.map((entry) => ({
+        value: entry._id,
+        label: Object.values(entry)[1]
+      }))
+    }));
   };
 
   useEffect(() => {
@@ -48,7 +46,7 @@ export default function Upload() {
           url: `http://localhost:3000/${route}/getAll`,
           method: "GET",
           headers: {},
-          id: `get-${route}`
+          id: `${route}`
         },
         applyData
       );

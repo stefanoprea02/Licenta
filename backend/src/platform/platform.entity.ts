@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
+import { IPlatform } from "./platform.types";
 
-const platformSchema = new mongoose.Schema({
+const platformSchema = new mongoose.Schema<IPlatform>({
   platform: {
     type: String,
     required: true,

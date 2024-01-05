@@ -7,7 +7,7 @@ import SelectForm from "./select-form/select-form";
 
 interface FormProps {
   fields: FormField[];
-  onSubmit: (data: object) => void;
+  onSubmit: (data: React.FormEvent<HTMLFormElement>) => void;
   yup: Yup.Schema;
 }
 

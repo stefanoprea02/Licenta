@@ -1,12 +1,17 @@
-import { RequestHandler } from "express";
-
 import Language from "./language.entity";
+import { TypedResponse } from "../utils/web";
+import { GetLanguageDTO } from "./language.types";
+import { NextFunction, Request } from "express";
 
-const getLanguages: RequestHandler = async (req, res, next) => {
+const getLanguages = async (
+  _req: Request,
+  res: TypedResponse<GetLanguageDTO[]>,
+  _next: NextFunction
+) => {
   try {
     const allLanguages = await Language.find({}, "language");
 
-    return res.status(200).json({ languages: allLanguages });
+    return res.status(200).json([...allLanguages]);
   } catch (err) {
     console.log(err);
   }

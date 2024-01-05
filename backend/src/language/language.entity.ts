@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
+import { ILanguage } from "./language.types";
 
-const languageSchema = new mongoose.Schema({
+const languageSchema = new mongoose.Schema<ILanguage>({
   language: {
     type: String,
     required: true,

@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
+import { ITag } from "./tag.types";
 
-const tagSchema = new mongoose.Schema({
+const tagSchema = new mongoose.Schema<ITag>({
   tag: {
     type: String,
     required: true,

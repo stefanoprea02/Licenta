@@ -1,15 +1,20 @@
 import User from "./user.entity";
 import { hashSync, compareSync } from "bcryptjs";
-import { RequestHandler } from "express";
+import { Request, RequestHandler } from "express";
 import { JwtPayload, sign, verify } from "jsonwebtoken";
-import { parseCookies } from "../utils/web";
-import { GetUserDTO } from "./dto/signup.dto";
+import {
+  MessageResponse,
+  TypedRequestBody,
+  TypedResponse,
+  parseCookies,
+} from "../utils/web";
+import { GetUserDTO, SigninDTO, SignupDTO } from "./user.types";
 
 function isJwtPayload(obj: any): obj is JwtPayload {
   return obj && typeof obj === "object" && "id" in obj;
 }
 
-const getUser: RequestHandler = async (req, res, next) => {
+const getUser = async (res: TypedResponse<GetUserDTO | MessageResponse>) => {
   const userId = res.locals.id;
   let user;
   try {
@@ -17,13 +22,15 @@ const getUser: RequestHandler = async (req, res, next) => {
   } catch (err) {
     console.log(err);
   }
-  if (!user) {
-    return res.status(404).json({ messsage: "User Not Found" });
-  }
-  return res.status(200).json({ user });
+  if (!user) return res.status(404).json({ message: "User Not Found" });
+
+  return res.status(200).json({ ...user });
 };
 
-const signup: RequestHandler = async (req, res, next) => {
+const signup = async (
+  req: TypedRequestBody<SignupDTO>,
+  res: TypedResponse<(GetUserDTO & { token: string }) | MessageResponse>
+) => {
   const { username, email, password } = req.body;
 
   let existingUser;
@@ -63,16 +70,13 @@ const signup: RequestHandler = async (req, res, next) => {
     secure: false,
   });
 
-  const userDTO: GetUserDTO = {
-    _id: user._id.toString(),
-    username: user.username,
-    email: user.email,
-  };
-
-  return res.status(200).json({ user: userDTO, token });
+  return res.status(200).json({ ...user, token });
 };
 
-const signin: RequestHandler = async (req, res, next) => {
+const signin = async (
+  req: TypedRequestBody<SigninDTO>,
+  res: TypedResponse<(GetUserDTO & { token: string }) | MessageResponse>
+) => {
   const { username, password } = req.body;
 
   let existingUser;
@@ -104,13 +108,9 @@ const signin: RequestHandler = async (req, res, next) => {
     sameSite: "lax",
   });
 
-  const userDTO: GetUserDTO = {
-    _id: existingUser._id.toString(),
-    username: existingUser.username,
-    email: existingUser.email,
-  };
+  console.log(res);
 
-  return res.status(200).json({ user: userDTO, token });
+  return res.status(200).json({ ...existingUser, token });
 };
 
 const verifyToken: RequestHandler = (req, res, next) => {
@@ -185,7 +185,7 @@ const refreshToken: RequestHandler = (req, res, next) => {
   });
 };
 
-const logout: RequestHandler = (req, res, next) => {
+const logout = (req: Request, res: TypedResponse<MessageResponse>) => {
   const cookies = req.headers.cookie;
   if (!cookies) return res.status(404).json({ message: "No cookies found" });
 

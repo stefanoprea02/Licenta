@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
+import { IGame } from "./game.types";
 
-const gameSchema = new mongoose.Schema({
+const gameSchema = new mongoose.Schema<IGame>({
   title: {
     type: String,
     required: true,

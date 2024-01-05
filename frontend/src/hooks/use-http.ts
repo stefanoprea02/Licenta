@@ -30,8 +30,11 @@ const useHttp = () => {
   }, []);
 
   const sendRequest = useCallback(
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    async (requestConfig: ConfigInterface, applyData?: (data: any) => void) => {
+    async (
+      requestConfig: ConfigInterface,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      applyData?: (data: any, requestId: string) => void
+    ) => {
       if (activeRequests.current[requestConfig.id]) {
         return;
       }
@@ -55,12 +58,11 @@ const useHttp = () => {
               ...prev,
               [requestConfig.id]: res.message || "Something weng wrong"
             }));
-            console.log(res.message);
             return;
           }
           return res;
         })
-        .then((data) => data && applyData?.(data))
+        .then((data) => data && applyData?.(data, requestConfig.id))
         .catch((error) => {
           setError((prev) => ({
             ...prev,
