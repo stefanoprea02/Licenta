@@ -1,6 +1,6 @@
 import { RequestHandler } from "express";
 
-import Tag from "../models/Tag";
+import Tag from "./tag.entity";
 
 const getTags: RequestHandler = async (req, res, next) => {
   try {

@@ -1,6 +1,6 @@
 import { RequestHandler } from "express";
 
-import Genre from "../models/Genre";
+import Genre from "./genre.entity";
 
 const getGenres: RequestHandler = async (req, res, next) => {
   try {

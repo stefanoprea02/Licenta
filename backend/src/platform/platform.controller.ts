@@ -1,6 +1,6 @@
 import { RequestHandler } from "express";
 
-import Platform from "../models/Platform";
+import Platform from "./platform.entity";
 
 const getPlatforms: RequestHandler = async (req, res, next) => {
   try {

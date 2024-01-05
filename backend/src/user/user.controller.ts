@@ -1,9 +1,9 @@
-import User from "../models/User";
+import User from "./user.entity";
 import { hashSync, compareSync } from "bcryptjs";
 import { RequestHandler } from "express";
 import { JwtPayload, sign, verify } from "jsonwebtoken";
 import { parseCookies } from "../utils/web";
-import { UserDTO } from "../types/types";
+import { GetUserDTO } from "./dto/signup.dto";
 
 function isJwtPayload(obj: any): obj is JwtPayload {
   return obj && typeof obj === "object" && "id" in obj;
@@ -63,7 +63,7 @@ const signup: RequestHandler = async (req, res, next) => {
     secure: false,
   });
 
-  const userDTO: UserDTO = {
+  const userDTO: GetUserDTO = {
     _id: user._id.toString(),
     username: user.username,
     email: user.email,
@@ -104,7 +104,7 @@ const signin: RequestHandler = async (req, res, next) => {
     sameSite: "lax",
   });
 
-  const userDTO: UserDTO = {
+  const userDTO: GetUserDTO = {
     _id: existingUser._id.toString(),
     username: existingUser.username,
     email: existingUser.email,

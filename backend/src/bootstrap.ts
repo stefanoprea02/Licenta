@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
 import fs from "fs/promises";
-import Genre from "./models/Genre";
-import Tag from "./models/Tag";
-import Platform from "./models/Platform";
-import Language from "./models/Language";
+import Genre from "./genre/genre.entity";
+import Tag from "./tag/tag.entity";
+import Platform from "./platform/platform.entity";
+import Language from "./language/language.entity";
 
 const readJSON = async (filePath: string) => {
   try {

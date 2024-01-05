@@ -1,6 +1,6 @@
 import express from "express";
-import { getGenres } from "../controllers/genre-controller";
-import { verifyToken } from "../controllers/user-controller";
+import { getGenres } from "./genre.controller";
+import { verifyToken } from "../user/user.controller";
 
 const router = express.Router();
 

@@ -55,6 +55,7 @@ const useHttp = () => {
               ...prev,
               [requestConfig.id]: res.message || "Something weng wrong"
             }));
+            console.log(res.message);
             return;
           }
           return res;

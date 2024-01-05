@@ -1,6 +1,6 @@
 import express from "express";
-import { verifyToken } from "../controllers/user-controller";
-import { getGames, uploadGame } from "../controllers/game-controller";
+import { verifyToken } from "../user/user.controller";
+import { getGames, uploadGame } from "./game.controller";
 
 const router = express.Router();
 

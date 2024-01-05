@@ -3,13 +3,15 @@ import { FormField } from "../../../types/types";
 
 interface SelectProps {
   field: FormField;
-  handleInputChange: (fieldName: string, values?: string | string[]) => void;
+  handleInputChange: (fieldName: string, values: string | string[]) => void;
+  handleInputBlur: (fieldName: string) => void;
   valid: boolean;
 }
 
 export default function SelectForm({
   field,
   handleInputChange,
+  handleInputBlur,
   valid
 }: SelectProps) {
   return (
@@ -26,10 +28,10 @@ export default function SelectForm({
         onChange={(selectedOptions) =>
           handleInputChange(
             field.name,
-            selectedOptions?.map((option) => option.value)
+            selectedOptions.map((option) => option.value)
           )
         }
-        onBlur={() => handleInputChange(field.name)}
+        onBlur={() => handleInputBlur(field.name)}
         styles={{
           control: (baseStyles, state) => ({
             ...baseStyles,
@@ -68,6 +70,10 @@ export default function SelectForm({
           clearIndicator: (baseStyles) => ({
             ...baseStyles,
             color: "#999"
+          }),
+          menu: (baseStyles) => ({
+            ...baseStyles,
+            color: "black"
           })
         }}
       />

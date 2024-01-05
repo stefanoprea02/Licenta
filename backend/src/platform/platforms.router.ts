@@ -1,6 +1,6 @@
 import express from "express";
-import { verifyToken } from "../controllers/user-controller";
-import { getPlatforms } from "../controllers/platform-controller";
+import { verifyToken } from "../user/user.controller";
+import { getPlatforms } from "./platform.controller";
 
 const router = express.Router();
 

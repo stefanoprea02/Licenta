@@ -5,12 +5,12 @@ import cookieParser from "cookie-parser";
 import logger from "morgan";
 import dotenv from "dotenv";
 import cors from "cors";
-import { gamesRouter } from "./routes/games";
-import { genresRouter } from "./routes/genres";
-import { languagesRouter } from "./routes/languages";
-import { platformsRouter } from "./routes/platforms";
-import { tagsRouter } from "./routes/tags";
-import { usersRouter } from "./routes/users";
+import { gamesRouter } from "./game/games.router";
+import { genresRouter } from "./genre/genres.router";
+import { languagesRouter } from "./language/languages.router";
+import { platformsRouter } from "./platform/platforms.router";
+import { tagsRouter } from "./tag/tags.router";
+import { usersRouter } from "./user/users.router";
 import http from "http";
 import Bootstrap from "./bootstrap";
 

@@ -1,6 +1,6 @@
 import express from "express";
-import { verifyToken } from "../controllers/user-controller";
-import { getLanguages } from "../controllers/language-controller";
+import { verifyToken } from "../user/user.controller";
+import { getLanguages } from "./language.controller";
 
 const router = express.Router();
 

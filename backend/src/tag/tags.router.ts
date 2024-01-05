@@ -1,6 +1,6 @@
 import express from "express";
-import { verifyToken } from "../controllers/user-controller";
-import { getTags } from "../controllers/tag-controller";
+import { verifyToken } from "../user/user.controller";
+import { getTags } from "./tag.controller";
 
 const router = express.Router();
 

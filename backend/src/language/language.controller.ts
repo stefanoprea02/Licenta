@@ -1,6 +1,6 @@
 import { RequestHandler } from "express";
 
-import Language from "../models/Language";
+import Language from "./language.entity";
 
 const getLanguages: RequestHandler = async (req, res, next) => {
   try {

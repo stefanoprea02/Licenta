@@ -7,14 +7,11 @@ import SelectForm from "./select-form/select-form";
 
 interface FormProps {
   fields: FormField[];
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  onSubmit: (data: any) => void;
+  onSubmit: (data: object) => void;
   yup: Yup.Schema;
 }
 
 const Form = ({ fields, onSubmit, yup }: FormProps) => {
-  //for every field there will be an entry inside this state about whether the field is valid
-  //and if not what the validation error is
   const [valid, setValid] = useState<{
     [key: string]: {
       valid: boolean;
@@ -28,7 +25,11 @@ const Form = ({ fields, onSubmit, yup }: FormProps) => {
 
   const [formDataText, setFormDataText] = useState<{
     [key: string]: string | string[];
-  }>({});
+  }>(
+    fields
+      .map((field) => ({ [field.name]: "" }))
+      .reduce((acc, obj) => Object.assign(acc, obj), {})
+  );
 
   const [formDataImages, setFormDataImages] = useState<File[]>([]);
 
@@ -46,13 +47,21 @@ const Form = ({ fields, onSubmit, yup }: FormProps) => {
     }
   };
 
-  //if there are no values passed it means the function just checks input validity
-  const handleInputChange = (fieldName: string, value?: string | string[]) => {
-    if (value !== undefined)
-      setFormDataText((prev) => ({ ...prev, [fieldName]: value }));
-
-    const response = verifyField(fieldName, value || formDataText[fieldName]);
+  const verifyAndUpdateState = (
+    fieldName: string,
+    value: string | string[] | File[]
+  ) => {
+    const response = verifyField(fieldName, value);
     setValid((prev) => ({ ...prev, [fieldName]: response }));
+  };
+
+  const handleInputChange = (fieldName: string, value: string | string[]) => {
+    setFormDataText((prev) => ({ ...prev, [fieldName]: value }));
+    verifyAndUpdateState(fieldName, value);
+  };
+
+  const handleInputBlur = (fieldName: string) => {
+    verifyAndUpdateState(fieldName, formDataText[fieldName]);
   };
 
   const handleImageChange = async (
@@ -63,8 +72,7 @@ const Form = ({ fields, onSubmit, yup }: FormProps) => {
 
     if (file) {
       setFormDataImages((prev) => [...prev, file]);
-      const response = verifyField("images", [...formDataImages, file]);
-      setValid((prev) => ({ ...prev, images: response }));
+      verifyAndUpdateState("images", [...formDataImages, file]);
 
       fileInput.value = "";
     }
@@ -97,7 +105,7 @@ const Form = ({ fields, onSubmit, yup }: FormProps) => {
                   onChange={(event) =>
                     handleInputChange(field.name, event.target.value)
                   }
-                  onBlur={() => handleInputChange(field.name)}
+                  onBlur={() => handleInputBlur(field.name)}
                   className={cx(styles.input)}
                   placeholder={field.label}
                 />
@@ -114,6 +122,7 @@ const Form = ({ fields, onSubmit, yup }: FormProps) => {
               <SelectForm
                 field={field}
                 handleInputChange={handleInputChange}
+                handleInputBlur={handleInputBlur}
                 valid={valid![field.name]?.valid}
               />
             )}

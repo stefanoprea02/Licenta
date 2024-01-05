@@ -13,6 +13,11 @@ const gameSchema = new mongoose.Schema({
     minLength: 10,
     maxLength: 500,
   },
+  status: {
+    type: String,
+    required: true,
+    default: "draft",
+  },
   images: {
     type: [String],
   },

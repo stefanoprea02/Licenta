@@ -6,12 +6,14 @@ import {
   getUser,
   refreshToken,
   logout,
-} from "../controllers/user-controller";
+} from "./user.controller";
+import { loginValidator, registerValidator } from "./user.validators";
+import { validator } from "../utils/validator";
 
 const router = express.Router();
 
-router.post("/signup", signup);
-router.post("/signin", signin);
+router.post("/signup", registerValidator, validator, signup);
+router.post("/signin", loginValidator, validator, signin);
 router.get("/user", getUser);
 router.get("/refresh", refreshToken, verifyToken, getUser);
 router.post("/logout", verifyToken, logout);
