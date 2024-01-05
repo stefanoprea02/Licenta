@@ -4,8 +4,11 @@ interface ConfigInterface {
   url: string;
   method: string;
   headers: HeadersInit;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  body?: any;
+  body?: {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    data: any;
+    type: "FormData" | "Object";
+  };
   id: string;
 }
 
@@ -49,7 +52,11 @@ const useHttp = () => {
         method: requestConfig.method,
         credentials: "include",
         headers: requestConfig.headers,
-        body: requestConfig.body ? JSON.stringify(requestConfig.body) : null
+        body: requestConfig.body
+          ? requestConfig.body.type === "Object"
+            ? JSON.stringify(requestConfig.body.data)
+            : requestConfig.body.data
+          : null
       })
         .then(async (response) => {
           const res = await response.json();

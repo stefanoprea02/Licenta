@@ -31,6 +31,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
+const imagesDirectory = path.resolve(__dirname, "../images");
+app.use("/images", express.static(imagesDirectory));
+
 app.use("/games", gamesRouter);
 app.use("/genres", genresRouter);
 app.use("/languages", languagesRouter);

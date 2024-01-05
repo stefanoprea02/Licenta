@@ -7,11 +7,12 @@ import SelectForm from "./select-form/select-form";
 
 interface FormProps {
   fields: FormField[];
-  onSubmit: (data: React.FormEvent<HTMLFormElement>) => void;
+  onSubmit: (data: object) => void;
   yup: Yup.Schema;
+  submitType: "FormData" | "Object";
 }
 
-const Form = ({ fields, onSubmit, yup }: FormProps) => {
+const Form = ({ fields, onSubmit, yup, submitType }: FormProps) => {
   const [valid, setValid] = useState<{
     [key: string]: {
       valid: boolean;
@@ -27,7 +28,8 @@ const Form = ({ fields, onSubmit, yup }: FormProps) => {
     [key: string]: string | string[];
   }>(
     fields
-      .map((field) => ({ [field.name]: "" }))
+      .filter((field) => field.type !== "image")
+      .map((field) => ({ [field.name]: field.type === "select" ? [] : "" }))
       .reduce((acc, obj) => Object.assign(acc, obj), {})
   );
 
@@ -92,7 +94,35 @@ const Form = ({ fields, onSubmit, yup }: FormProps) => {
     valid && Object.entries(valid).every(([, value]) => value.valid);
 
   return (
-    <form onSubmit={(event) => onSubmit(event)} className={styles.form}>
+    <form
+      onSubmit={(event) => {
+        event.preventDefault();
+
+        if (submitType === "FormData") {
+          const formData = new FormData();
+          for (const field of Object.keys(formDataText)) {
+            const value = formDataText[field];
+
+            if (Array.isArray(value)) {
+              for (const element of value) {
+                formData.append(`${field}[]`, element);
+              }
+            } else {
+              formData.append(`${field}`, value);
+            }
+          }
+          for (const image of formDataImages) {
+            const field = fields.find((f) => f.name === "images");
+            if (field) formData.append("images", image);
+          }
+
+          onSubmit(formData);
+        } else {
+          onSubmit({ ...formDataText, ...formDataImages });
+        }
+      }}
+      className={styles.form}
+    >
       {fields.map((field) => {
         return (
           <div className={styles.formSection} key={field.name}>

@@ -28,7 +28,6 @@ export default function Upload() {
     getResponse: (GenreType | LanguageType | PlatformType | TagType)[],
     requestId: string
   ) => {
-    console.log(getResponse);
     setData((prevData) => ({
       ...prevData,
       [requestId]: getResponse.map((entry) => ({
@@ -53,10 +52,21 @@ export default function Upload() {
     }
   }, [sendRequest]);
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const handleUploadResponse = (data: object) => {
+    console.log(data);
+  };
 
-    console.log(event);
+  const handleSubmit = (data: object) => {
+    sendRequest(
+      {
+        url: `http://localhost:3000/games/uploadDraft`,
+        method: "POST",
+        body: { data, type: "FormData" },
+        headers: {},
+        id: "uploadDraft"
+      },
+      handleUploadResponse
+    );
   };
 
   const gameYup = Yup.object().shape(gameUploadValidator);
@@ -64,7 +74,11 @@ export default function Upload() {
   const fields = useMemo(() => {
     const a: FormField[] = [
       { name: "title", label: "Title", type: "text" },
-      { name: "description", label: "Description", type: "text" },
+      {
+        name: "description",
+        label: "Description",
+        type: "text"
+      },
       {
         name: "genres",
         label: "Genres",
@@ -99,7 +113,12 @@ export default function Upload() {
       <div className={styles.uploadPage}>
         <h2>Upload a new game</h2>
         <div className={styles.formContainer}>
-          <Form fields={fields} yup={gameYup} onSubmit={handleSubmit} />
+          <Form
+            fields={fields}
+            yup={gameYup}
+            onSubmit={handleSubmit}
+            submitType="FormData"
+          />
         </div>
       </div>
     </>

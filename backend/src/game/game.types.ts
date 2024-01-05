@@ -6,11 +6,20 @@ export interface IGame extends Document {
   status: string;
   images?: string[];
   gameFile?: string;
-  genres?: Types.ObjectId | string;
-  languages?: Types.ObjectId | string;
-  platforms?: Types.ObjectId | string;
-  tags?: Types.ObjectId | string;
-  user?: Types.ObjectId | string;
+  genres: Types.ObjectId[];
+  languages: Types.ObjectId[];
+  platforms: Types.ObjectId[];
+  tags: Types.ObjectId[];
+  user: Types.ObjectId;
+}
+
+export interface UploadDraftDTO {
+  title: string;
+  description: string;
+  genres: string[];
+  languages: string[];
+  platforms: string[];
+  tags: string[];
 }
 
 export interface GetGameDTO extends IGame {

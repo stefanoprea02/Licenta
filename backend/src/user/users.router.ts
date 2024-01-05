@@ -1,4 +1,4 @@
-import express from "express";
+import express, { NextFunction, Request, Response } from "express";
 import {
   signup,
   signin,
@@ -12,9 +12,18 @@ import { validator } from "../utils/validator";
 
 const router = express.Router();
 
-router.post("/signup", registerValidator, validator, signup);
+router.post(
+  "/signup",
+  function (req: Request, _res: Response, next: NextFunction) {
+    console.log(req.body);
+    next();
+  },
+  registerValidator,
+  validator,
+  signup
+);
 router.post("/signin", loginValidator, validator, signin);
-router.get("/user", getUser);
+router.get("/user", verifyToken, getUser);
 router.get("/refresh", refreshToken, verifyToken, getUser);
 router.post("/logout", verifyToken, logout);
 

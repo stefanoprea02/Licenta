@@ -54,23 +54,25 @@ const signup = async (
 
   try {
     await user.save();
+
+    const token = sign({ id: user._id }, process.env.JWT_SECRET!, {
+      expiresIn: "1h",
+    });
+
+    res.cookie("token", token, {
+      path: "/",
+      expires: new Date(Date.now() + 1000 * 60 * 60),
+      httpOnly: true,
+      sameSite: "lax",
+      secure: false,
+    });
+
+    return res.status(200).json({ ...user, token });
   } catch (err) {
     console.log(err);
+
+    return res.status(500).json({ message: "Could not save user" });
   }
-
-  const token = sign({ id: user._id }, process.env.JWT_SECRET!, {
-    expiresIn: "1h",
-  });
-
-  res.cookie("token", token, {
-    path: "/",
-    expires: new Date(Date.now() + 1000 * 60 * 60),
-    httpOnly: true,
-    sameSite: "lax",
-    secure: false,
-  });
-
-  return res.status(200).json({ ...user, token });
 };
 
 const signin = async (
@@ -107,8 +109,6 @@ const signin = async (
     httpOnly: true,
     sameSite: "lax",
   });
-
-  console.log(res);
 
   return res.status(200).json({ ...existingUser, token });
 };
