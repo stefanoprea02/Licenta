@@ -19,7 +19,7 @@ export default function NavigationBar() {
             </li>
             <div className={styles.listRightSide}>
               <li>
-                <NavLink to="/upload" className={styles.home}>
+                <NavLink to="/upload/1" className={styles.home}>
                   Upload game
                 </NavLink>
               </li>

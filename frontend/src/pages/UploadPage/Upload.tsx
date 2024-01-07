@@ -1,126 +1,44 @@
-import { useEffect, useMemo, useState } from "react";
-import * as Yup from "yup";
-import Form from "../../components/form/form";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import GameDetailsEditor from "../../components/game-details-editor/game-details-editor";
+import GameUploadForm from "../../components/game-upload-form/game-upload-form";
 import useHttp from "../../hooks/use-http";
-import {
-  FormField,
-  FormFieldSelectOption,
-  GenreType,
-  LanguageType,
-  PlatformType,
-  TagType
-} from "../../types/types";
-import { gameUploadValidator } from "../../types/yup-validators";
+import { GameType } from "../../types/types";
 import styles from "./Upload.module.scss";
 
 export default function Upload() {
-  const [data, setData] = useState<{
-    [key: string]: FormFieldSelectOption[] | [];
-  }>({
-    genres: [],
-    languages: [],
-    platforms: [],
-    tags: []
-  });
+  const { uploadStep, gameId } = useParams();
   const { sendRequest } = useHttp();
-
-  const applyData = (
-    getResponse: (GenreType | LanguageType | PlatformType | TagType)[],
-    requestId: string
-  ) => {
-    setData((prevData) => ({
-      ...prevData,
-      [requestId]: getResponse.map((entry) => ({
-        value: entry._id,
-        label: Object.values(entry)[1]
-      }))
-    }));
-  };
+  const [gameData, setGameData] = useState<GameType>();
 
   useEffect(() => {
-    const routes = ["genres", "languages", "tags", "platforms"];
-    for (const route of routes) {
+    if (gameId) {
       sendRequest(
         {
-          url: `http://localhost:3000/${route}/getAll`,
+          url: `http://localhost:3000/games/getGameById?gameId=${gameId}`,
           method: "GET",
           headers: {},
-          id: `${route}`
+          id: `games`
         },
-        applyData
+        (data: GameType) => setGameData(data)
       );
     }
-  }, [sendRequest]);
+  }, [sendRequest, gameId]);
 
-  const handleUploadResponse = (data: object) => {
-    console.log(data);
-  };
-
-  const handleSubmit = (data: object) => {
-    sendRequest(
-      {
-        url: `http://localhost:3000/games/uploadDraft`,
-        method: "POST",
-        body: { data, type: "FormData" },
-        headers: {},
-        id: "uploadDraft"
-      },
-      handleUploadResponse
-    );
-  };
-
-  const gameYup = Yup.object().shape(gameUploadValidator);
-
-  const fields = useMemo(() => {
-    const a: FormField[] = [
-      { name: "title", label: "Title", type: "text" },
-      {
-        name: "description",
-        label: "Description",
-        type: "text"
-      },
-      {
-        name: "genres",
-        label: "Genres",
-        type: "select",
-        selectOptions: data.genres
-      },
-      {
-        name: "tags",
-        label: "Tags",
-        type: "select",
-        selectOptions: data.tags
-      },
-      {
-        name: "platforms",
-        label: "Platforms",
-        type: "select",
-        selectOptions: data.platforms
-      },
-      {
-        name: "languages",
-        label: "Languages",
-        type: "select",
-        selectOptions: data.languages
-      },
-      { name: "images", type: "image", maxImages: 8 }
-    ];
-    return a;
-  }, [data]);
+  if (gameId && !gameData) return;
 
   return (
-    <>
-      <div className={styles.uploadPage}>
-        <h2>Upload a new game</h2>
-        <div className={styles.formContainer}>
-          <Form
-            fields={fields}
-            yup={gameYup}
-            onSubmit={handleSubmit}
-            submitType="FormData"
-          />
-        </div>
-      </div>
-    </>
+    <div className={styles.uploadPage}>
+      {uploadStep === "1" ? (
+        <GameDetailsEditor
+          gameId={gameId ? gameId : undefined}
+          gameData={gameData}
+        />
+      ) : gameId ? (
+        <GameUploadForm gameId={gameId}></GameUploadForm>
+      ) : (
+        <></>
+      )}
+    </div>
   );
 }

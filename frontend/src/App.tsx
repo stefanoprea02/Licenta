@@ -1,18 +1,31 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./App.css";
+import Game from "./pages/GamePage/Game";
 import Home from "./pages/Home";
 import Root from "./pages/Root";
 import Upload from "./pages/UploadPage/Upload";
+import { GameMetadataProvider } from "./store/GameMetadataContext";
+import { UserProvider } from "./store/UserContext";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Root />,
+    element: (
+      <UserProvider>
+        <GameMetadataProvider>
+          <Root />
+        </GameMetadataProvider>
+      </UserProvider>
+    ),
     children: [
       { index: true, element: <Home /> },
       {
-        path: "upload",
+        path: "upload/:uploadStep/:gameId?",
         element: <Upload />
+      },
+      {
+        path: "games/:gameId",
+        element: <Game />
       }
     ]
   }

@@ -1,0 +1,44 @@
+.input {
+  width: 100%;
+  height: 48px;
+  margin-bottom: 25px;
+  padding: 15px 20px;
+  border-radius: 2px;
+  background-color: rgba(#f4f4f4, .5);
+  border: 1px solid #eee;
+  display: block;
+  transition: all .3s;
+
+  &::placeholder {
+    color: #999;
+    font-weight: 600;
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.goodInput, .badInput {
+  position: absolute;
+  top: 46px;
+  width: 100%;
+}
+
+.input:focus + .goodInput {
+  border-bottom: 3px solid #7ed56f;
+}
+
+.input:focus + .badInput {
+  border-bottom: 3px solid #ff7730;
+}
+
+.errorMessage {
+  font-size: 14px;
+  margin: 0px;
+  color: red;
+  position: absolute;
+  top: 52px;
+  left: 16px;
+  animation: .4s ease-in-out moveDown;
+}

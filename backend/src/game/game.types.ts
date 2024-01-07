@@ -22,6 +22,10 @@ export interface UploadDraftDTO {
   tags: string[];
 }
 
+export interface EditDraftDTO extends UploadDraftDTO {
+  oldImages: string[];
+}
+
 export interface GetGameDTO extends IGame {
   _id: Types.ObjectId;
 }

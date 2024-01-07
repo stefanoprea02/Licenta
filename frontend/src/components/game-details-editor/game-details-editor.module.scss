@@ -1,17 +1,6 @@
-.title {
-  font-size: 20px;
-  font-weight: 700;
-}
-
-.modal {
-  height: fit-content;
-}
-
-.modalContent {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  position: relative;
+.formContainer {
+  background-color: white;
+  padding: 40px;
 }
 
 .form {
@@ -49,7 +38,32 @@
   cursor: pointer;
 }
 
+.label {
+  font-weight: 700;
+  margin-left: 20px;
+  margin-top: 7px;
+  display: block;
+  transition: all .3s;
+}
+
 .errorMessage {
+  font-size: 14px;
   margin: 0px;
   color: red;
+  position: absolute;
+  top: 52px;
+  left: 16px;
+  animation: .4s ease-in-out moveDown;
+}
+
+@keyframes moveDown {
+  0%{
+    opacity: 0%;
+    transform: translateY(-20px);
+  }
+
+  100%{
+    opacity: 100%;
+    transform: translateY(0px);
+  }
 }

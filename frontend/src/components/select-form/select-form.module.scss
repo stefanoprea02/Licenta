@@ -1,0 +1,9 @@
+.errorMessage {
+  font-size: 14px;
+  margin: 0px;
+  color: red;
+  position: absolute;
+  top: 52px;
+  left: 16px;
+  animation: .4s ease-in-out moveDown;
+}

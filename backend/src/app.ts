@@ -32,7 +32,28 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 const imagesDirectory = path.resolve(__dirname, "../images");
+const gamesDirectory = path.resolve(__dirname, "../games");
 app.use("/images", express.static(imagesDirectory));
+app.use("/games", express.static(gamesDirectory));
+
+app.use(
+  "/games",
+  express.static(gamesDirectory, {
+    index: false, // Disable index.html serving by default
+  })
+);
+
+// Custom middleware to serve HTML files explicitly
+app.use("/games", (req, res, next) => {
+  const requestedFile = path.join(gamesDirectory, req.path);
+
+  // Check if the requested file is an HTML file
+  if (path.extname(requestedFile).toLowerCase() === ".html") {
+    res.sendFile(requestedFile);
+  } else {
+    next(); // Pass control to the next middleware
+  }
+});
 
 app.use("/games", gamesRouter);
 app.use("/genres", genresRouter);

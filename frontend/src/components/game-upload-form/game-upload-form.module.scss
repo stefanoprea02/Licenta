@@ -1,0 +1,49 @@
+.formContainer {
+  background-color: white;
+  padding: 40px;
+  color: black;
+}
+
+.spin-div {
+  padding: 30px 50px;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 4px;
+  height: 220px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.message {
+  padding: 15px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.message-success {
+  background-color: #dff0d8;
+  border-color: #d6e9c9;
+  color: #3c763d;
+}
+
+.message-error {
+  background-color: #fcf8ec;
+  border-color: #faebcc;
+  color: #8a6d3b;
+  flex-direction: column;
+}
+
+.dragger {
+  height: 200px;
+  display: block;
+}
+
+.div-content-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

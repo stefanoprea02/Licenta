@@ -1,25 +1,32 @@
+import React from "react";
 import Select from "react-select";
-import { FormField } from "../../../types/types";
+import { FormFieldSelectOption } from "../../types/types";
+import styles from "./select-form.module.scss";
 
 interface SelectProps {
-  field: FormField;
+  name: string;
+  selectOptions: FormFieldSelectOption[];
   handleInputChange: (fieldName: string, values: string | string[]) => void;
-  handleInputBlur: (fieldName: string) => void;
-  valid: boolean;
+  handleInputBlur: (event: React.FocusEvent<HTMLInputElement>) => void;
+  validationMessage?: string;
+  defaultValue: FormFieldSelectOption[] | undefined;
 }
 
 export default function SelectForm({
-  field,
+  name,
+  selectOptions,
   handleInputChange,
   handleInputBlur,
-  valid
+  validationMessage,
+  defaultValue
 }: SelectProps) {
   return (
     <div style={{ marginBottom: "25px" }}>
       <Select
-        placeholder={field.label}
+        defaultValue={defaultValue}
+        placeholder={name}
         isMulti
-        options={field.selectOptions?.map((option) => {
+        options={selectOptions.map((option) => {
           return {
             value: option.value,
             label: option.label
@@ -27,11 +34,11 @@ export default function SelectForm({
         })}
         onChange={(selectedOptions) =>
           handleInputChange(
-            field.name,
+            name,
             selectedOptions.map((option) => option.value)
           )
         }
-        onBlur={() => handleInputBlur(field.name)}
+        onBlur={handleInputBlur}
         styles={{
           control: (baseStyles, state) => ({
             ...baseStyles,
@@ -39,7 +46,7 @@ export default function SelectForm({
               borderColor: "none"
             },
             borderColor: state.isFocused
-              ? valid
+              ? !validationMessage
                 ? "#7ed56f"
                 : "#ff7730"
               : "#eee",
@@ -77,6 +84,9 @@ export default function SelectForm({
           })
         }}
       />
+      {validationMessage && (
+        <p className={styles.errorMessage}>{validationMessage}</p>
+      )}
     </div>
   );
 }

@@ -6,6 +6,7 @@
 /out-tsc
 /backend/dist
 /backend/images
+/backend/games
 
 # Runtime data
 pids

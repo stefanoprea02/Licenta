@@ -8,11 +8,25 @@ import {
   TypedResponse,
   parseCookies,
 } from "../utils/web";
-import { GetUserDTO, SigninDTO, SignupDTO } from "./user.types";
+import { GetUserDTO, IUser, SigninDTO, SignupDTO } from "./user.types";
+import { Document, Types } from "mongoose";
 
 function isJwtPayload(obj: any): obj is JwtPayload {
   return obj && typeof obj === "object" && "id" in obj;
 }
+
+const mapUserToGetUserDTO = (
+  user: Document<unknown, {}, IUser> &
+    IUser & {
+      _id: Types.ObjectId;
+    }
+): GetUserDTO => {
+  return {
+    _id: user._id,
+    username: user.username,
+    email: user.email,
+  };
+};
 
 const getUser = async (res: TypedResponse<GetUserDTO | MessageResponse>) => {
   const userId = res.locals.id;
@@ -67,7 +81,9 @@ const signup = async (
       secure: false,
     });
 
-    return res.status(200).json({ ...user, token });
+    const userDTO = mapUserToGetUserDTO(user);
+
+    return res.status(200).json({ ...userDTO, token });
   } catch (err) {
     console.log(err);
 
@@ -110,7 +126,9 @@ const signin = async (
     sameSite: "lax",
   });
 
-  return res.status(200).json({ ...existingUser, token });
+  const userDTO = mapUserToGetUserDTO(existingUser);
+
+  return res.status(200).json({ ...userDTO, token });
 };
 
 const verifyToken: RequestHandler = (req, res, next) => {
